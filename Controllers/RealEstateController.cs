@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using reman.Data;
 using reman.Models;
 
 namespace reman.Controllers;
@@ -8,17 +10,16 @@ namespace reman.Controllers;
 [Route("real-estates")]
 public class RealEstateController : ControllerBase
 {
-  public RealEstateController()
+  private readonly RemanContext _context;
+  public RealEstateController(RemanContext context)
   {
-
+    _context = context;
   }
 
   [HttpGet(Name = "RealEstate")]
-  public ActionResult<List<RealEstate>> Index()
+  public async Task<ActionResult<List<RealEstate>>> Index()
   {
-    RealEstate re1 = new RealEstate { Id = 1, Name = "Real Estate 1" };
-    List<RealEstate> realEstates = new List<RealEstate>() { re1 };
-
+    var realEstates = await _context.RealEstates.ToListAsync();
     return realEstates;
   }
 }
