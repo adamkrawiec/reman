@@ -1,0 +1,6 @@
+@reman_HostAddress = http://localhost:5150
+
+GET {{reman_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

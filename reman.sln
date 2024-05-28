@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reman", "reman.csproj", "{6AF4F4B5-41EF-4F8D-8D16-4FC6A037254F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "reman.Tests", "reman.Tests\reman.Tests.csproj", "{EEF98475-AEFD-4DBB-8DD0-CA8D2FA89405}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AF4F4B5-41EF-4F8D-8D16-4FC6A037254F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AF4F4B5-41EF-4F8D-8D16-4FC6A037254F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AF4F4B5-41EF-4F8D-8D16-4FC6A037254F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AF4F4B5-41EF-4F8D-8D16-4FC6A037254F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEF98475-AEFD-4DBB-8DD0-CA8D2FA89405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEF98475-AEFD-4DBB-8DD0-CA8D2FA89405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEF98475-AEFD-4DBB-8DD0-CA8D2FA89405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEF98475-AEFD-4DBB-8DD0-CA8D2FA89405}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
