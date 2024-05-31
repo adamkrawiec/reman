@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using reman.Data;
@@ -21,5 +20,17 @@ public class RealEstateController : ControllerBase
   {
     var realEstates = await _context.RealEstates.ToListAsync();
     return realEstates;
+  }
+
+  [HttpPost]
+  public async Task<ActionResult<RealEstate>> Create(RealEstate realEstate)
+  {
+    if (!ModelState.IsValid)
+    {
+      return BadRequest(ModelState);
+    }
+    _context.RealEstates.Add(realEstate);
+    await _context.SaveChangesAsync();
+    return realEstate;
   }
 }
