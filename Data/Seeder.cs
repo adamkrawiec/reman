@@ -16,6 +16,8 @@ class Seeder
         _context.Database.EnsureCreated();
 
         var realEstates = new RealEstates(_context);
+        var estateUnits = new EstateUnits(_context);
         realEstates.Initialize();
+        estateUnits.Initialize();
     }
 }

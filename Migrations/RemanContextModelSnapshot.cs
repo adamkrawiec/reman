@@ -16,10 +16,35 @@ namespace reman.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.5")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("reman.Models.EstateUnit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("RealEstateId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RealEstateId");
+
+                    b.ToTable("EstateUnits");
+                });
 
             modelBuilder.Entity("reman.Models.RealEstate", b =>
                 {
@@ -36,6 +61,17 @@ namespace reman.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RealEstates");
+                });
+
+            modelBuilder.Entity("reman.Models.EstateUnit", b =>
+                {
+                    b.HasOne("reman.Models.RealEstate", "RealEstate")
+                        .WithMany()
+                        .HasForeignKey("RealEstateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RealEstate");
                 });
 #pragma warning restore 612, 618
         }
