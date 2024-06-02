@@ -15,7 +15,7 @@ public class EstateUnit {
   public string Name { get; set; }
   
   public int RealEstateId { get; set; }
-  public RealEstate RealEstate { get; set; }
+  public RealEstate? RealEstate { get; set; }
 
   [JsonConverter(typeof(JsonStringEnumConverter))]
   public EstateUnitType Type { get; set; }
