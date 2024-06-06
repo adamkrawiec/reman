@@ -15,8 +15,8 @@ public class EstateUnitControllerTest
     public async Task Index_ReturnsListOfAllEstateUnits()
     {
         // Given
-        var realEstate1 = new RealEstate(1, "RE0001");
-        var realEstate2 = new RealEstate(1, "RE0002");
+        var realEstate1 = new RealEstate(1, "RE0001", "London", "Street 1", 1);
+        var realEstate2 = new RealEstate(1, "RE0001", "Paris", "Street 1", 1);
         var data = new List<EstateUnit>
         {
             new EstateUnit { Id = 1, Name = "EU00011", Type = EstateUnitType.RESIDENTIAL, RealEstate = realEstate1 },
@@ -73,7 +73,7 @@ public class EstateUnitControllerTest
     public async Task GetById_ReturnsEstateUnitById()
     {
         // Given
-        var realEstate1 = new RealEstate(1, "RE0001");
+        var realEstate1 = new RealEstate(1, "RE0001", "London", "Street 1", 1);
         var data = new List<EstateUnit>
         {
             new EstateUnit { Id = 1, Name = "EU00011", Type = EstateUnitType.RESIDENTIAL, RealEstate = realEstate1 },
@@ -92,6 +92,41 @@ public class EstateUnitControllerTest
         Assert.Equal(1, response.Value.Id);
         Assert.Equal("EU00011", response.Value.Name);
         Assert.Equal(EstateUnitType.RESIDENTIAL, response.Value.Type);
+        Assert.Equal(1, response.Value.RealEstate.Id);
+        Assert.Equal("RE0001", response.Value.RealEstate.Name);
+    }
+
+
+    public async Task UpdateById_UpdatesEstateUnit()
+    {
+        // Given
+        var realEstate1 = new RealEstate(1, "RE0001", "London", "Street 1", 1);
+        var estateUnit = new EstateUnit {
+            Id = 1,
+            Name = "EU00011",
+            Type = EstateUnitType.RESIDENTIAL,
+            RealEstate = realEstate1,
+            Area = 54.2f,
+            FlatNumber = 1
+        };
+        var data = new List<EstateUnit>
+        {
+            new EstateUnit { Id = 1, Name = "EU00011", Type = EstateUnitType.RESIDENTIAL, RealEstate = realEstate1 },
+        };
+
+        var contextMock = new Mock<RemanContext>();
+        contextMock.Setup(c => c.EstateUnits).ReturnsDbSet(data);
+
+        EstateUnitController controller = new EstateUnitController(contextMock.Object);
+        
+        // When
+        EstateUnitDTO estateUnitDTO = new EstateUnitDTO(estateUnit);
+        var response = await controller.UpdateById(1, estateUnit);
+
+        // Then
+        Assert.Equal(1, response.Value.Id);
+        Assert.Equal("EU00013", response.Value.Name);
+        Assert.Equal(EstateUnitType.COMMERCIAL, response.Value.Type);
         Assert.Equal(1, response.Value.RealEstate.Id);
         Assert.Equal("RE0001", response.Value.RealEstate.Name);
     }

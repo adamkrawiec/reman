@@ -35,12 +35,45 @@ public class RealEstateController : ControllerBase
         return realEstate;
     }
 
+    [HttpGet("{id}", Name = "RealEstateById")]
+    public async Task<ActionResult<RealEstate>> GetById(int id)
+    {
+        var realEstate = await _context.RealEstates.FindAsync(id);
+        if (realEstate is null)
+        {
+            return NotFound();
+        }
+        return realEstate;
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<RealEstate>> Update(int id, RealEstate realEstate)
+    {
+        if (id != realEstate.Id)
+        {
+            return BadRequest();
+        }
+        _context.Entry(realEstate).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return realEstate;
+    }
+
     [HttpGet("{id}/estate-units", Name = "RealEstateEstateUnits")]
     public async Task<ActionResult<List<EstateUnitDTO>>> GetEstateUnits(int id)
     {
         List<EstateUnit> estateUnits = await _context.EstateUnits.
             Where(eu => eu.RealEstateId == id).
             ToListAsync();
+        return estateUnits.Select(eu => new EstateUnitDTO(eu)).ToList();
+    }
+
+    [HttpGet("{id}/estate-units/residential")]
+    public async Task<ActionResult<List<EstateUnitDTO>>> GetResidentialEstateUnits(int id)
+    {
+        List<EstateUnit> estateUnits = await _context.EstateUnits.
+            Where(eu => eu.RealEstateId == id && eu.Type == EstateUnitType.RESIDENTIAL).
+            ToListAsync();
+
         return estateUnits.Select(eu => new EstateUnitDTO(eu)).ToList();
     }
 }

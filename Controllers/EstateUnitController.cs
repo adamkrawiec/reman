@@ -54,4 +54,23 @@
         }
         return new EstateUnitDTO(estateUnit);
     }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<EstateUnitDTO>> UpdateById(int id, EstateUnit estateUnitParams)
+    {
+        var estateUnit = await _context.EstateUnits.FindAsync(id);
+        if (estateUnit == null)
+        {
+            return NotFound();
+        }
+
+        if(!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        _context.Entry(estateUnit).CurrentValues.SetValues(estateUnitParams);
+        await _context.SaveChangesAsync();
+        return new EstateUnitDTO(estateUnitParams);
     }
+}

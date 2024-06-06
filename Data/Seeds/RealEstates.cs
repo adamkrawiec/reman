@@ -20,9 +20,9 @@ class RealEstates
 
         var realEstates = new RealEstate[]
         {
-            new RealEstate { Name = "RE00001" },
-            new RealEstate { Name = "RE00002" },
-            new RealEstate { Name = "RE00003" }
+            new RealEstate { Name = "RE00001", City = "New York" },
+            new RealEstate { Name = "RE00002", City = "London" },
+            new RealEstate { Name = "RE00003", City = "Paris" }
         };
         _context.AddRange(realEstates);
 
