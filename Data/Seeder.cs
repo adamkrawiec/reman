@@ -17,7 +17,9 @@ class Seeder
 
         var realEstates = new RealEstates(_context);
         var estateUnits = new EstateUnits(_context);
+        var tenants = new Tenants(_context);
         realEstates.Initialize();
         estateUnits.Initialize();
+        tenants.Initialize();
     }
 }

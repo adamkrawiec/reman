@@ -13,5 +13,6 @@ namespace reman.Data
 
         public virtual DbSet<RealEstate> RealEstates { get; set; } = null;
         public virtual DbSet<EstateUnit> EstateUnits { get; set; } = null;
+        public virtual DbSet<Tenant> Tenants { get; set; } = null;
     }
 }
