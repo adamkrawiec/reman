@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using reman.Data;
 using reman.DTO;
-using reman.Models;
 
 namespace reman.Controllers;
 
@@ -18,7 +17,7 @@ public class EstateUnitTenancyController : ControllerBase
     }
 
     [HttpGet("{id}/tenants")]
-    public async Task<ActionResult<List<TenancyDTO>>> GetTenants(int id)
+    public async Task<ActionResult<List<TenancyDTO>>> GetTenancies(int id)
     {
         var tenancies = await _context.Tenancies
         .Where(t => t.EstateUnit.Id == id)
