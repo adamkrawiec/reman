@@ -1,14 +1,14 @@
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using reman.Data;
-    using reman.Dto;
-    using reman.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using reman.Data;
+using reman.Dto;
+using reman.Models;
 
-    namespace reman.Controllers;
+namespace reman.Controllers;
 
-    [ApiController]
-    [Route("estate-units")]
-    public class EstateUnitController : ControllerBase
+[ApiController]
+[Route("estate-units")]
+public class EstateUnitController : ControllerBase
     {
     private readonly RemanContext _context;
 
