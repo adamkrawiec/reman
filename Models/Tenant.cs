@@ -10,6 +10,11 @@ public class Tenant
     {
     }
 
+    public static Tenant Vacancy()
+    {
+        return new Tenant { Name = "Vacancy" };
+    }
+
     public Tenant(int id, string name, bool commercial = false)
     {
         Id = id;
