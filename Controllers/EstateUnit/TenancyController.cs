@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using reman.Data;
 using reman.DTO;
-using reman.Services;
+using reman.Services.TenancyServices;
 
 namespace reman.Controllers;
 
@@ -22,7 +21,10 @@ public class EstateUnitTenancyController : ControllerBase
     public async Task<ActionResult<List<TenancyDTO>>> GetTenancies(int id)
     {
         TenancyLoader tenancyLoader = new TenancyLoader(_context, id);
-        var tenancies = await tenancyLoader.GetTenantsWithVacancies();
+        var tenancies = await tenancyLoader.LoadTenancies();
+
+        VacancyFiller vacancyFiller = new VacancyFiller(tenancies);
+        var tenanciesWithVanccies = await vacancyFiller.AddVacancies();
 
         return tenancies.Select(t => new TenancyDTO(t)).ToList();
     }
