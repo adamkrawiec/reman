@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using reman.Data;
+using reman.DTO;
 using reman.Models;
 
 namespace reman.Services.TenancyServices;

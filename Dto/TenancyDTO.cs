@@ -7,7 +7,9 @@ public class TenancyDTO
 {
     public int Id { get; set; }
     public EstateUnitDTO? EstateUnit { get; set; }
-    public TenantDTO Tenant { get; set; }
+    public TenantDTO? Tenant { get; set; }
+    public int EstateUnitId { get; set; }
+    public int TenantId { get; set; }
     public DateOnly StartDate { get; set; }
     public DateOnly? EndDate { get; set; }
 
@@ -16,6 +18,7 @@ public class TenancyDTO
     public TenancyDTO(Tenancy tenancy)
     {
         Id = tenancy.Id;
+        TenantId = tenancy.TenantId;
         Tenant = new TenantDTO(tenancy.Tenant);
         StartDate = tenancy.StartDate;
         EndDate = tenancy.EndDate;

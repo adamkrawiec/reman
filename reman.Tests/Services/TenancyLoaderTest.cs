@@ -2,13 +2,13 @@ using Moq;
 using Moq.EntityFrameworkCore;
 using reman.Data;
 using reman.Models;
-using reman.Services;
+using reman.Services.TenancyServices;
 
 namespace reman.Tests.Services;
 
 public class TenancyLoaderTest
 {
-    private EstateUnit setupEstateUnit()
+    private EstateUnit newEstateUnit()
     {
         return new EstateUnit {
             Id = 1,
@@ -19,18 +19,18 @@ public class TenancyLoaderTest
         };
     }
 
-    private Tenancy setupTenancy(EstateUnit estateUnit, DateOnly startDate, DateOnly? endDate)
+    private Tenancy newTenancy(EstateUnit estateUnit, DateOnly startDate, DateOnly? endDate)
     {
         return new Tenancy {
             Id = 1,
-            EstateUnit = setupEstateUnit(),
-            Tenant = setupTenant(),
+            EstateUnit = newEstateUnit(),
+            Tenant = newTenant(),
             StartDate = startDate,
             EndDate = endDate
         };
     }
 
-    private Tenant setupTenant()
+    private Tenant newTenant()
     {
         return new Tenant {
             Id = 1,
@@ -48,10 +48,10 @@ public class TenancyLoaderTest
     [Fact]
     public async Task GetTenancies_ReturnsTenanciesListForEstateUnit()
     {
-        EstateUnit estateUnit = setupEstateUnit();
+        EstateUnit estateUnit = newEstateUnit();
         List<Tenancy> tenancies = new List<Tenancy> {
-            setupTenancy(estateUnit, new DateOnly(2020,1,1), new DateOnly(2020,10,1)),
-            setupTenancy(estateUnit, new DateOnly(2020,1,1), new DateOnly(2020,10,1))
+            newTenancy(estateUnit, new DateOnly(2020,1,1), new DateOnly(2020,10,1)),
+            newTenancy(estateUnit, new DateOnly(2020,1,1), new DateOnly(2020,10,1))
         };
         Mock<RemanContext> contextMock = setupDBContext(tenancies);
 

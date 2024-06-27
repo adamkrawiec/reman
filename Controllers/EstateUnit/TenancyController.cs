@@ -1,31 +1,42 @@
 using Microsoft.AspNetCore.Mvc;
 using reman.Data;
 using reman.DTO;
+using reman.Models;
 using reman.Services.TenancyServices;
 
 namespace reman.Controllers;
 
 [ApiController]
-[Route("estate-units")]
+[Route("estate-units/{id}/tenants")]
 public class EstateUnitTenancyController : ControllerBase
 {
     private readonly RemanContext _context;
-    private readonly TenancyLoader _tenancyLoader;
 
     public EstateUnitTenancyController(RemanContext context)
     {
         _context = context;
     }
 
-    [HttpGet("{id}/tenants")]
+    [HttpGet]
     public async Task<ActionResult<List<TenancyDTO>>> GetTenancies(int id)
     {
         TenancyLoader tenancyLoader = new TenancyLoader(_context, id);
-        var tenancies = await tenancyLoader.LoadTenancies();
+        List<Tenancy> tenancies = await tenancyLoader.LoadTenancies();
 
         VacancyFiller vacancyFiller = new VacancyFiller(tenancies);
-        var tenanciesWithVanccies = await vacancyFiller.AddVacancies();
+        List<Tenancy> tenanciesWithVanccies = await vacancyFiller.AddVacancies();
 
-        return tenancies.Select(t => new TenancyDTO(t)).ToList();
+        return tenanciesWithVanccies.Select(t => new TenancyDTO(t)).ToList();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<TenancyDTO>> CreateTenancy(int id, TenancyDTO tenancyDto)
+    {
+        tenancyDto.EstateUnitId = id;
+        TenancyCreator tc = new TenancyCreator(_context, ModelState, tenancyDto);
+        TenancyDTO? newTenancyDto = await tc.SaveTenancy();
+
+        if(newTenancyDto is not null) { return newTenancyDto; }
+        return BadRequest(tc.ModelState);
     }
 }
